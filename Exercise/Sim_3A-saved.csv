@@ -1,0 +1,11 @@
+Name,Type,Object,Description
+Avg_Price,variable,Root,Use already implemented macros to calculate the average price:
+Max_Value,variable,Root,The function calculates the maximum price for a given period.
+Ave_Comp,variable,Root,The function calculates the average competitiveness over a period.
+Cost,variable,Firm,The cost is given by a normal distribution using the parameters avg and sd.
+Desired,variable,Firm,This equation represents the desired price of firm i in period t, that is given by the current unit cost adjusted by a fixed markup.
+Price,variable,Firm,The price of the firms as a weighted average between the desired price and the market average price in the previous period.
+RandomQ,variable,Firm,The function generates a random quality component based on a uniform distribution.
+Quality,variable,Firm,The function generates a quality 'factor' associated with the firm.
+Competitiveness,variable,Firm,The function calculates competitiveness based on price, quality and elasticities.
+Market_share,variable,Firm,The function calculates the market share of firm i in period t.

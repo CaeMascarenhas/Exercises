@@ -1,0 +1,142 @@
+	
+Label Root
+{
+	Son: Firm
+	Label Firm
+	{
+
+	}
+
+	Var: Cost
+	Param: avg
+	Param: sd
+	Var: Desired
+	Param: markup
+	Param: weight
+	Var: Price
+
+}
+
+
+DATA
+
+Object: Root C	1
+Var: Cost 0 s + n n
+Param: avg 0 n + n n	5
+Param: sd 0 n + n n	1
+Var: Desired 0 s + n n
+Param: markup 0 n + n n	0.5
+Param: weight 0 n + n n	0.5
+Var: Price 1 s + n p	1
+
+Object: Firm C	5
+
+SIM_NUM 1
+SEED 1
+MAX_STEP 100
+EQUATION fun_Exercise.cpp
+MODELREPORT report_Sim1.html
+
+DESCRIPTION
+
+Object_Root
+
+END_DESCRIPTION
+
+Variable_Cost
+The cost is given by a normal distribution using the parameters avg and sd.
+END_DESCRIPTION
+
+Parameter_avg
+
+_INIT_
+All 1 instances equal to 5
+END_DESCRIPTION
+
+Parameter_sd
+
+_INIT_
+All 1 instances equal to 1
+END_DESCRIPTION
+
+Variable_Desired
+This equation represents the desired price of firm i in period t, that is given by the current unit cost adjusted by a fixed markup.
+END_DESCRIPTION
+
+Parameter_markup
+
+_INIT_
+All 1 instances equal to 0.5
+END_DESCRIPTION
+
+Parameter_weight
+
+_INIT_
+All 1 instances equal to 0.5
+END_DESCRIPTION
+
+Variable_Price
+The price of the firms as a weighted average between the desired price and the market average price in the previous period.
+_INIT_
+All 1 instances equal to 1
+END_DESCRIPTION
+
+Object_Firm
+
+END_DESCRIPTION
+
+
+DOCUOBSERVE
+
+END_DOCUOBSERVE
+
+
+DOCUINITIAL
+
+END_DOCUINITIAL
+
+
+EQ_FILE
+//Exercise 1: Simple Price Model
+   
+#include "fun_head_fast.h"
+   
+MODELBEGIN
+   
+EQUATION("Price")
+/*
+The price of the firms as a weighted average between the desired price and the market average price in the previous period.
+*/
+ v[0] = V("weight");
+ v[1] = V("Desired");
+ v[2] = AVEL("Price", 1);
+ v[3] = v[0]*v[1] + (1-v[0])*v[2];
+RESULT(v[3] )
+  
+EQUATION("Desired")
+/*
+This equation represents the desired price of firm i in period t, that is given by the current unit cost adjusted by a fixed markup.
+*/
+ v[0] = V("Cost");
+ v[1] = V("markup");
+ v[2] = (1+v[1])*v[0];
+  
+RESULT(v[2] )
+EQUATION("Cost")
+/*
+The cost is given by a normal distribution using the parameters avg and sd.
+*/
+ v[0] = V("avg");
+ v[1] = V("sd");
+ v[2]=norm(v[0], v[1]);
+  
+RESULT(v[2] )
+  
+MODELEND
+// do not add Equations in this area
+void close_sim( void )
+{
+// close simulation special commands go here
+} 
+
+END_EQ_FILE

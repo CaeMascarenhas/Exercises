@@ -1,0 +1,3 @@
+Ave_Comp Ave_HHI Avg_Price Competitiveness ConsistencyT Cost CountFirms Desired Entry Exit HHI Market_share Max_Value Normalized Price Quality RandomQ SumMarketS SumNormalized
+adjustment avg elasticityP elasticityQ markup qmax qmin sd switch_entry threshold weight
+Firm
